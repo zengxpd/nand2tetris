@@ -74,7 +74,7 @@ class CodeWriter:
     
     function_ret_counter = {}
     current_function = 'null'  # Track the current function for label scoping
-    current_file_name = ''
+    current_file_name = 'Sys'
     push_commands = '@SP\nA=M\nM=D\n@SP\nM=M+1\n'
     pop_commands = '@SP\nAM=M-1\nD=M\n' 
 
@@ -87,7 +87,12 @@ class CodeWriter:
             ret_label = f'{self.current_file_name}.{function_name}${self.function_ret_counter[function_name]}'
         return ret_label
 
+    def write_init(self):
+        self.file.write('//init\n@256\nD=A\n@SP\nM=D\n')
+        self.write_call('init', 0)
+
     def set_file_name(self, file_name):
+        '''Path -> stem'''
         self.current_file_name = Path(file_name).stem
 
     def set_current_function(self, function_name):
@@ -166,7 +171,6 @@ class CodeWriter:
             self.file.write('@SP\nA=M-1\nM=!M\n')
         else:
             raise ValueError(f"Invalid arithmetic command: {command}")
-
 
     def write_push_pop(self, command_type, segment, index):
         self.file.write(f'\n//{'push' if command_type == CommandType.C_PUSH else 'pop'} {segment} {index}\n')
@@ -320,21 +324,33 @@ class CodeWriter:
 
 
 class VMTranslator:
-    def __init__(self, input_file):
-        self.input_file = input_file
-        self.output_file = Path(input_file).with_suffix('.asm')
-        self.parser = Parser(input_file)
-        self.code_writer = CodeWriter(self.output_file)
+    def __init__(self, input_path):
+        self.input_path = input_path
+        self.path_is_dir = Path(input_path).is_dir()
+        if self.path_is_dir:
+            self.output_file = Path(self.input_path) / (Path(self.input_path).name + '.asm')
+            self.input_file = [p.resolve() for p in Path(self.input_path).glob('*.vm')]
+            if not self.input_file:
+                print(f'no\'.vm\'file in {self.input_path}')
+                sys.exit(1)
+            if 'Sys' not in (Path(p).stem for p in self.input_file):
+                print(f'no\'Sys.vm\'file in \'{self.input_path}\'')
+                sys.exit(1)
+        else:
+            self.output_file = Path(self.input_path).with_suffix('.asm')
+            self.input_file = [self.input_path]
+        self.codewriter = CodeWriter(self.output_file)
+
+
 
     def translate(self):
-        for line in self.parser.lines:
-            command_type = self.parser.command_type(line)
-            if command_type == CommandType.C_ARITHMETIC:
-                self.code_writer.write_arithmetic(self.parser.arg1(line))
-            elif command_type in [CommandType.C_PUSH, CommandType.C_POP]:
-                segment = self.parser.arg1(line)
-                index = self.parser.arg2(line)
-                self.code_writer.write_push_pop(command_type, segment, index)
+        if self.path_is_dir:
+            self.codewriter.write_init()
+        for current_file in self.input_file:
+            parser = Parser(current_file)
+            self.codewriter.set_file_name(current_file)
+            for line in parser.lines:
+                pass
 
 
 
@@ -343,8 +359,8 @@ if __name__ == '__main__':
         print("Usage: python myVMTranslator.py <inputfile.vm>")
         sys.exit(1)
 
-    input_file = sys.argv[1]
-    translator = VMTranslator(input_file)
+    input_path = sys.argv[1]
+    translator = VMTranslator(input_path)
     translator.translate()
     translator.code_writer.close()
     print(f"Translation complete. Output written to {translator.output_file}")
