@@ -1,3 +1,4 @@
+//************* StackTest start *************
 
 //push constant 17
 @17
@@ -34,6 +35,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 17
 @17
 D=A
@@ -69,6 +71,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 16
 @16
 D=A
@@ -104,6 +107,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 892
 @892
 D=A
@@ -139,6 +143,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 891
 @891
 D=A
@@ -174,6 +179,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 891
 @891
 D=A
@@ -209,6 +215,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 32767
 @32767
 D=A
@@ -244,6 +251,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 32766
 @32766
 D=A
@@ -279,6 +287,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 32766
 @32766
 D=A
@@ -314,6 +323,7 @@ M=M+1
                             @SP
                             A=M-1
                             M=D
+                            
 //push constant 57
 @57
 D=A
@@ -396,9 +406,3 @@ M=D|M
 @SP
 A=M-1
 M=!M
-
-
-
-(StackTest.end)
-@StackTest.end
-0;JMP

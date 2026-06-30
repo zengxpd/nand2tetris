@@ -74,29 +74,35 @@ class CodeWriter:
     
     function_ret_counter = {}
     current_function = 'null'  # Track the current function for label scoping
-    current_file_name = 'Sys'
+    current_file_name = 'null'
     push_commands = '@SP\nA=M\nM=D\n@SP\nM=M+1\n'
     pop_commands = '@SP\nAM=M-1\nD=M\n' 
 
     def function_ret_label(self, function_name) -> str:
-        if function_name in self.function_ret_counter.key():
-            ret_label = f'{self.current_file_name}.{function_name}${self.function_ret_counter[function_name]}'
+        if function_name in self.function_ret_counter.keys():
             self.function_ret_counter[function_name] += 1
+            ret_label = f'{function_name}$ret.{self.function_ret_counter[function_name]}'
+  
         else:
             self.function_ret_counter[function_name] = 0
-            ret_label = f'{self.current_file_name}.{function_name}${self.function_ret_counter[function_name]}'
+            ret_label = f'{function_name}$ret.{self.function_ret_counter[function_name]}'
         return ret_label
 
-    def write_init(self):
-        self.file.write('//init\n@256\nD=A\n@SP\nM=D\n')
-        self.write_call('init', 0)
+    def write(self, string : str):
+        self.file.write(string)
 
-    def set_file_name(self, file_name):
-        '''Path -> stem'''
+    def set_current_file(self, file_name):
         self.current_file_name = Path(file_name).stem
 
     def set_current_function(self, function_name):
-        self.current_function = function_name  
+        self.current_function = function_name 
+
+    def write_init(self):
+        self.file.write('//init\n')
+        self.file.write('@256\nD=A\n@SP\nM=D\n')
+        self.set_current_file('Sys')
+        self.write_call('Sys.init', 0)
+        self.set_current_file('null')
 
     def write_arithmetic(self, command):
         self.file.write(f'\n//{command}\n')
@@ -107,61 +113,64 @@ class CodeWriter:
         elif command == 'neg':
             self.file.write('@SP\nA=M-1\nM=-M\n')
         elif command == 'eq':
-            self.file.write(f'''@SP
-                            AM=M-1
-                            D=M
-                            A=A-1
-                            D=M-D
-                            @{self.output_file_name}.eq.{self.label_counter}
-                            D;JEQ
-                            D=0
-                            @{self.output_file_name}.eq.{self.label_counter}.end
-                            0;JMP
-                            ({self.output_file_name}.eq.{self.label_counter})
-                            D=-1
-                            ({self.output_file_name}.eq.{self.label_counter}.end)
-                            @SP
-                            A=M-1
-                            M=D
-                            ''')
+            self.file.write(
+                f"@SP\n"
+                f"AM=M-1\n"
+                f"D=M\n"
+                f"A=A-1\n"
+                f"D=M-D\n"
+                f"@{self.output_file_name}.eq.{self.label_counter}\n"
+                f"D;JEQ\n"
+                f"D=0\n"
+                f"@{self.output_file_name}.eq.{self.label_counter}.end\n"
+                f"0;JMP\n"
+                f"({self.output_file_name}.eq.{self.label_counter})\n"
+                f"D=-1\n"
+                f"({self.output_file_name}.eq.{self.label_counter}.end)\n"
+                f"@SP\n"
+                f"A=M-1\n"
+                f"M=D\n"
+            )
             self.label_counter += 1
         elif command == 'gt':
-            self.file.write(f'''@SP
-                            AM=M-1
-                            D=M
-                            A=A-1
-                            D=M-D
-                            @{self.output_file_name}.gt.{self.label_counter}
-                            D;JGT
-                            D=0
-                            @{self.output_file_name}.gt.{self.label_counter}.end
-                            0;JMP
-                            ({self.output_file_name}.gt.{self.label_counter})
-                            D=-1
-                            ({self.output_file_name}.gt.{self.label_counter}.end)
-                            @SP
-                            A=M-1
-                            M=D
-                            ''')
+            self.file.write(
+                f"@SP\n"
+                f"AM=M-1\n"
+                f"D=M\n"
+                f"A=A-1\n"
+                f"D=M-D\n"
+                f"@{self.output_file_name}.gt.{self.label_counter}\n"
+                f"D;JGT\n"
+                f"D=0\n"
+                f"@{self.output_file_name}.gt.{self.label_counter}.end\n"
+                f"0;JMP\n"
+                f"({self.output_file_name}.gt.{self.label_counter})\n"
+                f"D=-1\n"
+                f"({self.output_file_name}.gt.{self.label_counter}.end)\n"
+                f"@SP\n"
+                f"A=M-1\n"
+                f"M=D\n"
+            )
             self.label_counter += 1
         elif command == 'lt':
-            self.file.write(f'''@SP
-                            AM=M-1
-                            D=M
-                            A=A-1
-                            D=M-D
-                            @{self.output_file_name}.lt.{self.label_counter}
-                            D;JLT
-                            D=0
-                            @{self.output_file_name}.lt.{self.label_counter}.end
-                            0;JMP
-                            ({self.output_file_name}.lt.{self.label_counter})
-                            D=-1
-                            ({self.output_file_name}.lt.{self.label_counter}.end)
-                            @SP
-                            A=M-1
-                            M=D
-                            ''')
+            self.file.write(
+                f"@SP\n"
+                f"AM=M-1\n"
+                f"D=M\n"
+                f"A=A-1\n"
+                f"D=M-D\n"
+                f"@{self.output_file_name}.lt.{self.label_counter}\n"
+                f"D;JLT\n"
+                f"D=0\n"
+                f"@{self.output_file_name}.lt.{self.label_counter}.end\n"
+                f"0;JMP\n"
+                f"({self.output_file_name}.lt.{self.label_counter})\n"
+                f"D=-1\n"
+                f"({self.output_file_name}.lt.{self.label_counter}.end)\n"
+                f"@SP\n"
+                f"A=M-1\n"
+                f"M=D\n"
+            )
             self.label_counter += 1
         elif command == 'and':
             self.file.write('@SP\nAM=M-1\nD=M\nA=A-1\nM=D&M\n')
@@ -173,7 +182,8 @@ class CodeWriter:
             raise ValueError(f"Invalid arithmetic command: {command}")
 
     def write_push_pop(self, command_type, segment, index):
-        self.file.write(f'\n//{'push' if command_type == CommandType.C_PUSH else 'pop'} {segment} {index}\n')
+        op = 'push' if command_type == CommandType.C_PUSH else 'pop'
+        self.file.write(f"\n//{op} {segment} {index}\n")
         if command_type == CommandType.C_PUSH:
             if segment == 'constant':
                 self.file.write(f'@{index}\nD=A\n{self.push_commands}')
@@ -182,7 +192,7 @@ class CodeWriter:
             elif segment == 'argument':
                 self.file.write(f'@ARG\nD=M\n@{index}\nA=D+A\nD=M\n{self.push_commands}')
             elif segment == 'static':
-                self.file.write(f'@{self.output_file_name}.{index}\nD=M\n{self.push_commands}')
+                self.file.write(f'@{self.current_file_name}.{index}\nD=M\n{self.push_commands}')
             elif segment == 'this':
                 self.file.write(f'@THIS\nD=M\n@{index}\nA=D+A\nD=M\n{self.push_commands}')
             elif segment == 'that':
@@ -202,7 +212,7 @@ class CodeWriter:
             elif segment == 'argument':
                 self.file.write(f'@{index}\nD=A\n@ARG\nD=D+M\n@R13\nM=D\n{self.pop_commands}@R13\nA=M\nM=D\n')
             elif segment == 'static':
-                self.file.write(f'@SP\nAM=M-1\nD=M\n@{self.output_file_name}.{index}\nM=D\n')
+                self.file.write(f'@SP\nAM=M-1\nD=M\n@{self.current_file_name}.{index}\nM=D\n')
             elif segment == 'this':
                 self.file.write(f'@{index}\nD=A\n@THIS\nD=D+M\n@R13\nM=D\n{self.pop_commands}@R13\nA=M\nM=D\n')
             elif segment == 'that':
@@ -219,21 +229,21 @@ class CodeWriter:
         
     def write_label(self, label):
         self.file.write(f'\n//label {label}\n')
-        self.file.write(f'({self.current_file_name}.{self.current_function}${label})\n')
+        self.file.write(f'({self.current_function}${label})\n')
 
     def write_goto(self, label):
         self.file.write(f'\n//goto {label}\n')
-        self.file.write(f'@{self.current_file_name}.{self.current_function}${label}\n0;JMP\n')
+        self.file.write(f'@{self.current_function}${label}\n0;JMP\n')
 
     def write_if(self, label):
         self.file.write(f'\n//if-goto {label}\n')
-        self.file.write(f'@SP\nAM=M-1\nD=M\n@{self.current_file_name}.{self.current_function}${label}\nD;JNE\n')
+        self.file.write(f'@SP\nAM=M-1\nD=M\n@{self.current_function}${label}\nD;JNE\n')
 
     def write_function(self, function_name, nVars):
         self.set_current_function(function_name)
         self.file.write(f'\n//function {function_name} {nVars}\n')
-        self.file.write(f'({self.current_file_name}.{function_name})\n')
-        for i in range(nVars):
+        self.file.write(f'({function_name})\n')
+        for _ in range(nVars):
             self.file.write(f'@0\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n')
 
     def write_call(self, function_name, nArgs):
@@ -243,16 +253,16 @@ class CodeWriter:
                         D=A
                         {self.push_commands}
                         @LCL
-                        D=A
+                        D=M
                         {self.push_commands}
                         @ARG
-                        D=A
+                        D=M
                         {self.push_commands}
                         @THIS
-                        D=A
+                        D=M
                         {self.push_commands}
                         @THAT
-                        D=A
+                        D=M
                         {self.push_commands}
                         @SP
                         D=M
@@ -264,7 +274,7 @@ class CodeWriter:
                         D=M
                         @LCL
                         M=D
-                        @{self.current_file_name}.{function_name}
+                        @{function_name}
                         0;JMP
                         ({label})
                         ''')
@@ -281,7 +291,7 @@ class CodeWriter:
                         @R14
                         M=D
                         @SP
-                        AM=A-1
+                        AM=M-1
                         D=M
                         @ARG
                         A=M
@@ -290,7 +300,6 @@ class CodeWriter:
                         D=M+1
                         @SP
                         M=D
-                        
                         @R13
                         AM=M-1
                         D=M
@@ -317,7 +326,7 @@ class CodeWriter:
                         ''')
 
     def close(self):
-        self.file.write(f'\n\n\n({self.output_file_name}.end)\n@{self.output_file_name}.end\n0;JMP\n')
+        #self.file.write(f'\n\n\n({self.output_file_name}.end)\n@{self.output_file_name}.end\n0;JMP\n')
         self.file.close()
 
 
@@ -348,10 +357,34 @@ class VMTranslator:
             self.codewriter.write_init()
         for current_file in self.input_file:
             parser = Parser(current_file)
-            self.codewriter.set_file_name(current_file)
+            self.codewriter.set_current_file(current_file)
+            self.codewriter.write(f'//************* {self.codewriter.current_file_name} start *************\n')
             for line in parser.lines:
-                pass
-
+                command_type = parser.command_type(line)
+                arg1 = parser.arg1(line)
+                if command_type in [CommandType.C_PUSH, CommandType.C_POP, CommandType.C_FUNCTION, CommandType.C_CALL]:
+                    arg2 = parser.arg2(line)
+                if command_type == CommandType.C_ARITHMETIC:
+                    self.codewriter.write_arithmetic(arg1)
+                elif command_type in [CommandType.C_PUSH, CommandType.C_POP]:
+                    self.codewriter.write_push_pop(command_type, arg1, arg2)
+                elif command_type ==CommandType.C_LABEL:
+                    self.codewriter.write_label(arg1)
+                elif command_type ==CommandType.C_GOTO:
+                    self.codewriter.write_goto(arg1)
+                elif command_type ==CommandType.C_IF:
+                    self.codewriter.write_if(arg1)
+                elif command_type ==CommandType.C_FUNCTION:
+                    self.codewriter.write_function(arg1, arg2)
+                    self.codewriter.set_current_function(arg1)
+                elif command_type ==CommandType.C_CALL:
+                    self.codewriter.write_call(arg1, arg2)
+                elif command_type ==CommandType.C_RETURN:
+                    self.codewriter.write_return()
+                    #self.codewriter.set_current_function('null')
+                else:
+                    pass
+            self.codewriter.set_current_file('null')
 
 
 if __name__ == '__main__':
@@ -362,5 +395,5 @@ if __name__ == '__main__':
     input_path = sys.argv[1]
     translator = VMTranslator(input_path)
     translator.translate()
-    translator.code_writer.close()
+    translator.codewriter.close()
     print(f"Translation complete. Output written to {translator.output_file}")
