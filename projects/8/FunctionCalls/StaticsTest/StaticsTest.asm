@@ -6,59 +6,54 @@ M=D
 
 //call Sys.init 0
 @Sys.init$ret.0
-                        D=A
-                        @SP
+D=A
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @LCL
-                        D=M
-                        @SP
+@LCL
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @ARG
-                        D=M
-                        @SP
+@ARG
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THIS
-                        D=M
-                        @SP
+@THIS
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THAT
-                        D=M
-                        @SP
+@THAT
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @SP
-                        D=M
-                        @5
-                        D=D-A
-                        @ARG
-                        M=D
-                        @SP
-                        D=M
-                        @LCL
-                        M=D
-                        @Sys.init
-                        0;JMP
-                        (Sys.init$ret.0)
-                        //************* Class1 start *************
+@SP
+D=M
+@5
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Sys.init
+0;JMP
+(Sys.init$ret.0)
+//************* Class1 start *************
 
 //function Class1.set 0
 (Class1.set)
@@ -112,48 +107,48 @@ M=M+1
 
 //return
 @LCL
-                        D=M
-                        @R13
-                        M=D
-                        @5
-                        A=D-A
-                        D=M
-                        @R14
-                        M=D
-                        @SP
-                        AM=M-1
-                        D=M
-                        @ARG
-                        A=M
-                        M=D
-                        @ARG
-                        D=M+1
-                        @SP
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THAT
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THIS
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @ARG
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @LCL
-                        M=D
-                        @R14
-                        A=M
-                        0;JMP
-                        
+D=M
+@R13
+M=D
+@5
+A=D-A
+D=M
+@R14
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@R13
+AM=M-1
+D=M
+@THAT
+M=D
+@R13
+AM=M-1
+D=M
+@THIS
+M=D
+@R13
+AM=M-1
+D=M
+@ARG
+M=D
+@R13
+AM=M-1
+D=M
+@LCL
+M=D
+@R14
+A=M
+0;JMP
+
 //function Class1.get 0
 (Class1.get)
 
@@ -184,48 +179,48 @@ M=M-D
 
 //return
 @LCL
-                        D=M
-                        @R13
-                        M=D
-                        @5
-                        A=D-A
-                        D=M
-                        @R14
-                        M=D
-                        @SP
-                        AM=M-1
-                        D=M
-                        @ARG
-                        A=M
-                        M=D
-                        @ARG
-                        D=M+1
-                        @SP
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THAT
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THIS
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @ARG
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @LCL
-                        M=D
-                        @R14
-                        A=M
-                        0;JMP
-                        //************* Class2 start *************
+D=M
+@R13
+M=D
+@5
+A=D-A
+D=M
+@R14
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@R13
+AM=M-1
+D=M
+@THAT
+M=D
+@R13
+AM=M-1
+D=M
+@THIS
+M=D
+@R13
+AM=M-1
+D=M
+@ARG
+M=D
+@R13
+AM=M-1
+D=M
+@LCL
+M=D
+@R14
+A=M
+0;JMP
+//************* Class2 start *************
 
 //function Class2.set 0
 (Class2.set)
@@ -279,48 +274,48 @@ M=M+1
 
 //return
 @LCL
-                        D=M
-                        @R13
-                        M=D
-                        @5
-                        A=D-A
-                        D=M
-                        @R14
-                        M=D
-                        @SP
-                        AM=M-1
-                        D=M
-                        @ARG
-                        A=M
-                        M=D
-                        @ARG
-                        D=M+1
-                        @SP
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THAT
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THIS
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @ARG
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @LCL
-                        M=D
-                        @R14
-                        A=M
-                        0;JMP
-                        
+D=M
+@R13
+M=D
+@5
+A=D-A
+D=M
+@R14
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@R13
+AM=M-1
+D=M
+@THAT
+M=D
+@R13
+AM=M-1
+D=M
+@THIS
+M=D
+@R13
+AM=M-1
+D=M
+@ARG
+M=D
+@R13
+AM=M-1
+D=M
+@LCL
+M=D
+@R14
+A=M
+0;JMP
+
 //function Class2.get 0
 (Class2.get)
 
@@ -351,48 +346,48 @@ M=M-D
 
 //return
 @LCL
-                        D=M
-                        @R13
-                        M=D
-                        @5
-                        A=D-A
-                        D=M
-                        @R14
-                        M=D
-                        @SP
-                        AM=M-1
-                        D=M
-                        @ARG
-                        A=M
-                        M=D
-                        @ARG
-                        D=M+1
-                        @SP
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THAT
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @THIS
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @ARG
-                        M=D
-                        @R13
-                        AM=M-1
-                        D=M
-                        @LCL
-                        M=D
-                        @R14
-                        A=M
-                        0;JMP
-                        //************* Sys start *************
+D=M
+@R13
+M=D
+@5
+A=D-A
+D=M
+@R14
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@R13
+AM=M-1
+D=M
+@THAT
+M=D
+@R13
+AM=M-1
+D=M
+@THIS
+M=D
+@R13
+AM=M-1
+D=M
+@ARG
+M=D
+@R13
+AM=M-1
+D=M
+@LCL
+M=D
+@R14
+A=M
+0;JMP
+//************* Sys start *************
 
 //function Sys.init 0
 (Sys.init)
@@ -417,59 +412,54 @@ M=M+1
 
 //call Class1.set 2
 @Class1.set$ret.0
-                        D=A
-                        @SP
+D=A
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @LCL
-                        D=M
-                        @SP
+@LCL
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @ARG
-                        D=M
-                        @SP
+@ARG
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THIS
-                        D=M
-                        @SP
+@THIS
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THAT
-                        D=M
-                        @SP
+@THAT
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
+@SP
+D=M
+@7
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class1.set
+0;JMP
+(Class1.set$ret.0)
 
-                        @SP
-                        D=M
-                        @7
-                        D=D-A
-                        @ARG
-                        M=D
-                        @SP
-                        D=M
-                        @LCL
-                        M=D
-                        @Class1.set
-                        0;JMP
-                        (Class1.set$ret.0)
-                        
 //pop temp 0
 @SP
 AM=M-1
@@ -497,59 +487,54 @@ M=M+1
 
 //call Class2.set 2
 @Class2.set$ret.0
-                        D=A
-                        @SP
+D=A
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @LCL
-                        D=M
-                        @SP
+@LCL
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @ARG
-                        D=M
-                        @SP
+@ARG
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THIS
-                        D=M
-                        @SP
+@THIS
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THAT
-                        D=M
-                        @SP
+@THAT
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
+@SP
+D=M
+@7
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class2.set
+0;JMP
+(Class2.set$ret.0)
 
-                        @SP
-                        D=M
-                        @7
-                        D=D-A
-                        @ARG
-                        M=D
-                        @SP
-                        D=M
-                        @LCL
-                        M=D
-                        @Class2.set
-                        0;JMP
-                        (Class2.set$ret.0)
-                        
 //pop temp 0
 @SP
 AM=M-1
@@ -559,114 +544,104 @@ M=D
 
 //call Class1.get 0
 @Class1.get$ret.0
-                        D=A
-                        @SP
+D=A
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @LCL
-                        D=M
-                        @SP
+@LCL
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @ARG
-                        D=M
-                        @SP
+@ARG
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THIS
-                        D=M
-                        @SP
+@THIS
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THAT
-                        D=M
-                        @SP
+@THAT
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
+@SP
+D=M
+@5
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class1.get
+0;JMP
+(Class1.get$ret.0)
 
-                        @SP
-                        D=M
-                        @5
-                        D=D-A
-                        @ARG
-                        M=D
-                        @SP
-                        D=M
-                        @LCL
-                        M=D
-                        @Class1.get
-                        0;JMP
-                        (Class1.get$ret.0)
-                        
 //call Class2.get 0
 @Class2.get$ret.0
-                        D=A
-                        @SP
+D=A
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @LCL
-                        D=M
-                        @SP
+@LCL
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @ARG
-                        D=M
-                        @SP
+@ARG
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THIS
-                        D=M
-                        @SP
+@THIS
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
-
-                        @THAT
-                        D=M
-                        @SP
+@THAT
+D=M
+@SP
 A=M
 M=D
 @SP
 M=M+1
+@SP
+D=M
+@5
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class2.get
+0;JMP
+(Class2.get$ret.0)
 
-                        @SP
-                        D=M
-                        @5
-                        D=D-A
-                        @ARG
-                        M=D
-                        @SP
-                        D=M
-                        @LCL
-                        M=D
-                        @Class2.get
-                        0;JMP
-                        (Class2.get$ret.0)
-                        
 //label END
 (Sys.init$END)
 
